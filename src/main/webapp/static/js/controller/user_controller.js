@@ -1,7 +1,25 @@
 'use strict';
 
 App.controller('UserController', ['$scope', 'User', function($scope, User) {
-          var self = this;
+	$scope.search = "";	
+	$scope.order = "username";
+	$scope.selectedUser = null;
+	$scope.selectedIndex = null;
+	
+	$scope.selectUser = function (user, index) {
+		$scope.selectedIndex = index;
+		$scope.selectedUser = user;
+	};
+	
+		$scope.sensitiveSearch = function(user) {
+			if ($scope.search) {
+				return user.username.indexOf($scope.search) == 0 ||
+					     user.email.indexOf($scope.search) == 0;
+			}
+			return true;
+		};
+		
+		var self = this;
           self.user= new User();
           
           self.users=[];

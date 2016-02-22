@@ -84,19 +84,62 @@
           <div class="panel panel-default">
                 <!-- Default panel contents -->
               <div class="panel-heading"><span class="lead">List of Users </span></div>
-              <div class="tablecontainer">
+              
+              <div class="row" >
+				<div class="col-md-12" >
+					<form class="form-inline well well-sm" >
+						<span class="glyphicon glyphicon-search" ></span >
+		
+						<div class="form-group" >
+								<input type="text"
+								       class="form-control"
+								       id="name"
+								       ng-model="search"
+								       placeholder="Search name & email"
+										/>
+						</div >
+		
+						<span class="glyphicon glyphicon-sort-by-attributes" ></span >
+		
+						<div class="form-group" >
+							<select class="form-control"
+											ng-model="order">
+								<option value="username" >Name (ASC)</option >
+								<option value="-username" >Name (DEC)</option >
+								<option value="email" >Email (ASC)</option >
+								<option value="-email" >Email (DEC)</option >
+							</select >
+						</div >
+		
+					</form >
+				</div >
+			</div >
+	
+	<div class="row" >
+		<div class="col-md-8" >
+              <div class="tablecontainer">              	  
                   <table class="table table-hover">
                       <thead>
                           <tr>
                               <th>ID.</th>
-                              <th>Name</th>
+                              <th>Name
+                              	<span ng-click="order = 'username'" class="glyphicon glyphicon-menu-up"></span>
+						<span ng-click="order = '-username'" class="glyphicon glyphicon-menu-down"></span>
+                              </th>
                               <th>Address</th>
-                              <th>Email</th>
+                              <th>Email
+                              	<span ng-click="order = 'email'" class="glyphicon glyphicon-menu-up"></span>
+						<span ng-click="order = '-email'" class="glyphicon glyphicon-menu-down"></span>
+                              </th>
                               <th width="20%"></th>
                           </tr>
                       </thead>
                       <tbody>
-                          <tr ng-repeat="u in ctrl.users">
+                          <tr ng-repeat="u in filteredUsers = (ctrl.users | filter:sensitiveSearch | orderBy:order)" 
+                          ng-style="{
+							 'background-color': $index == selectedIndex ? 'lightgray' : ''
+						}"
+				    ng-click="selectUser(u, $index)" >
                               <td><span ng-bind="u.id"></span></td>
                               <td><span ng-bind="u.username"></span></td>
                               <td><span ng-bind="u.address"></span></td>
@@ -105,9 +148,37 @@
                               <button type="button" ng-click="ctrl.edit(u.id)" class="btn btn-success custom-width">Edit</button>  <button type="button" ng-click="ctrl.remove(u.id)" class="btn btn-danger custom-width">Remove</button>
                               </td>
                           </tr>
+                          <tr ng-show="filteredUsers.length == 0">
+							<td colspan="4">
+								<div class="alert alert-info">
+									<p class="text-center">No results found for search term '{{ search }}'</p>
+								</div>
+							</td>
+						</tr>
                       </tbody>
                   </table>
               </div>
+             </div>
+             <div class="col-md-4" >
+
+			<div class="panel panel-default" >
+				<div class="panel-heading" >User Details</div >
+				<div class="panel-body" >
+
+					<dl >
+						<dt >Name</dt >
+						<dd >{{selectedUser.username}}</dd >
+						<dt >Email</dt >
+						<dd >{{selectedUser.email}}</dd >
+						<dt >Address</dt >
+						<dd >{{selectedUser.address}}</dd >
+					</dl >
+
+				</div >
+			</div >
+
+		</div >
+             
           </div>
       </div>
       
