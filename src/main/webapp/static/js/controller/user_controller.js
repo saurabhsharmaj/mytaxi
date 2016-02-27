@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('UserController', ['$scope', 'User', function($scope, User) {
+App.controller('UserController', ['$scope', 'User','toaster', function($scope, User, toaster) {
 	$scope.search = "";	
 	$scope.order = "username";
 	$scope.selectedUser = null;
@@ -57,13 +57,14 @@ App.controller('UserController', ['$scope', 'User', function($scope, User) {
                   self.createUser();
               }else{
     			  console.log('Upddating user with id ', self.user.id);
-                  self.updateUser();
+                  self.updateUser();                
                   console.log('User updated with id ', self.user.id);
+                  toaster.pop('success', 'Updated ' + self.user.username);
               }
               self.reset();
           };
               
-          self.edit = function(id){
+          self.edit = function(id){        	 
               console.log('id to be edited', id);
               for(var i = 0; i < self.users.length; i++){
                   if(self.users[i].id === id) {

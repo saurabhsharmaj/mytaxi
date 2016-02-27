@@ -223,7 +223,6 @@
                     enableValidElementStyling = enabled;
                 };
 
-
                 /**
                  * @ngdoc function
                  * @name validator#setInvalidElementStyling
@@ -271,6 +270,13 @@
                     if (dm.makeDefault) {
                         dm.makeDefault(el);
                     }
+                };
+
+                this.defaultFormValidationOptions = {
+                    forceValidation: false,
+                    disabled: false,
+                    validateNonVisibleControls: false,
+                    removeExternalValidationErrorsOnSubmit: true
                 };
 
                 this.$get = [

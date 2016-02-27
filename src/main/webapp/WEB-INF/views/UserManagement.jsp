@@ -25,11 +25,20 @@
       }
 
     </style>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-     <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+    <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+	<link href="<c:url value='/static/css/paper.css' />" rel="stylesheet"></link>
+    <link href="<c:url value='/static/css/bootstrap.min.css' />" rel="stylesheet"></link>
+    
+    <link href="<c:url value='/static/js/libs/bootstrap-additions/dist/bootstrap-additions.min.css' />" rel="stylesheet"></link>
+	 <link href="<c:url value='/static/js/libs/angularjs-toaster/toaster.min.css' />" rel="stylesheet"></link>
+	<link href="<c:url value='/static/js/libs/ladda/dist/ladda-themeless.min.css' />" rel="stylesheet"></link>
+	<link href="<c:url value='/static/js/libs/font-awesome/css/font-awesome.min.css' />" rel="stylesheet"></link>
+     
   </head>
-  <body ng-app="myApp" class="ng-cloak">
+  <body ng-app="myApp" class="ng-cloak">  
+      <toaster-container ></toaster-container >
       <div class="generic-container" ng-controller="UserController as ctrl">
+      
           <div class="panel panel-default">
               <div class="panel-heading"><span class="lead">User Registration Form </span></div>
               <div class="formcontainer">
@@ -81,6 +90,9 @@
                   </form>
               </div>
           </div>
+          
+          
+          
           <div class="panel panel-default">
                 <!-- Default panel contents -->
               <div class="panel-heading"><span class="lead">List of Users </span></div>
@@ -88,7 +100,7 @@
               <div class="row" >
 				<div class="col-md-12" >
 					<form class="form-inline well well-sm" >
-						<span class="glyphicon glyphicon-search" ></span >
+						<span class="fm fm-search" ></span >
 		
 						<div class="form-group" >
 								<input type="text"
@@ -99,7 +111,7 @@
 										/>
 						</div >
 		
-						<span class="glyphicon glyphicon-sort-by-attributes" ></span >
+						<span class="fm fm-sort-by-attributes" ></span >
 		
 						<div class="form-group" >
 							<select class="form-control"
@@ -123,13 +135,13 @@
                           <tr>
                               <th>ID.</th>
                               <th>Name
-                              	<span ng-click="order = 'username'" class="glyphicon glyphicon-menu-up"></span>
-						<span ng-click="order = '-username'" class="glyphicon glyphicon-menu-down"></span>
+                              	<span ng-click="order = 'username'" class="fm fm-menu-up"></span>
+						<span ng-click="order = '-username'" class="fm fm-menu-down"></span>
                               </th>
                               <th>Address</th>
                               <th>Email
-                              	<span ng-click="order = 'email'" class="glyphicon glyphicon-menu-up"></span>
-						<span ng-click="order = '-email'" class="glyphicon glyphicon-menu-down"></span>
+                              	<span ng-click="order = 'email'" class="fm fm-menu-up"></span>
+						<span ng-click="order = '-email'" class="fm fm-menu-down"></span>
                               </th>
                               <th width="20%"></th>
                           </tr>
@@ -181,12 +193,21 @@
              
           </div>
       </div>
-      
 
-      <script src="<c:url value='/static/js/libs/angular/angular.js' />"></script>
-      <script src="<c:url value='/static/js/libs/angular/angular-resource.js' />"></script>
-      <script src="<c:url value='/static/js/app.js' />"></script>
-      <script src="<c:url value='/static/js/service/user_service.js' />"></script>
-      <script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
+	<script src="<c:url value='/static/js/libs/angular/angular.js' />"></script>
+	<script src="<c:url value='/static/js/libs/angular/angular-resource.js' />"></script>
+	<script src="<c:url value='/static/js/libs/angular-animate/angular-animate.min.js' />"></script>
+	<script src="<c:url value='/static/js/libs/ngInfiniteScroll/build/ng-infinite-scroll.min.js' />"></script>
+	<script src="<c:url value='/static/js/libs/spin.js/spin.js' />"></script>
+	<script src="<c:url value='/static/js/libs/angular-spinner/angular-spinner.min.js' />"></script>
+	
+	<script src="<c:url value='/static/js/libs/ladda/dist/ladda.min.js' />"></script>
+	<script src="<c:url value='/static/js/libs/angular-ladda/dist/angular-ladda.min.js' />"></script>
+	<script src="<c:url value='/static/js/libs/angular-strap/dist/angular-strap.min.js' />"></script>
+	<script src="<c:url value='/static/js/libs/angular-strap/dist/angular-strap.tpl.min.js' />"></script>
+	<script src="<c:url value='/static/js/libs/angularjs-toaster/toaster.min.js' />"></script>	
+	<script src="<c:url value='/static/js/app.js' />"></script>
+	<script src="<c:url value='/static/js/service/user_service.js' />"></script>
+	<script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
   </body>
 </html>
