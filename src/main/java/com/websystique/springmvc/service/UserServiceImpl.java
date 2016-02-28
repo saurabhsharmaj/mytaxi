@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService{
 	private static List<User> populateDummyUsers(){
 		List<User> users = new ArrayList<User>();
 		users.add(new User(counter.incrementAndGet(),"Ansh", "IN", "ansh@gmail.com"));
-		/*users.add(new User(counter.incrementAndGet(),"Abhinav", "IN", "abhinav@abc.com"));
+		users.add(new User(counter.incrementAndGet(),"Abhinav", "IN", "abhinav@abc.com"));
 		users.add(new User(counter.incrementAndGet(),"Amit", "IN", "amit@abc.com"));
 		users.add(new User(counter.incrementAndGet(),"Chirag", "IN", "chirag@abc.com"));
 		users.add(new User(counter.incrementAndGet(),"Deepak", "IN", "deepak@abc.com"));
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService{
 		users.add(new User(counter.incrementAndGet(),"Neha", "IN", "neha@abc.com"));
 		users.add(new User(counter.incrementAndGet(),"Shanker", "IN", "shanker@abc.com"));
 		users.add(new User(counter.incrementAndGet(),"Tanu", "IN", "tanu@abc.com"));
-		users.add(new User(counter.incrementAndGet(),"Varun", "IN", "varun@abc.com"));*/
+		users.add(new User(counter.incrementAndGet(),"Varun", "IN", "varun@abc.com"));
 		users.add(new User(counter.incrementAndGet(),"Vijay", "IN", "vijay@abc.com"));
 		return users;
 	}
