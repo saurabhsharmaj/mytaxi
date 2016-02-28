@@ -23,5 +23,7 @@ public interface UserService {
 	void deleteAllUsers();
 	
 	public boolean isUserExist(User user);
+
+	List<User> findAllUsers(Integer page);
 	
 }

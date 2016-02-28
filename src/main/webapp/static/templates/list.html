@@ -1,104 +1,121 @@
-<div class="container main-content">
 
-	<div class="row" >
-		<div class="col-md-12" >
-			<form class="form-inline well well-sm" >
-				<span class="glyphicon glyphicon-search" ></span >
+<!-- Default panel contents -->
+<div class="panel-heading">
+	<span class="lead">List of Users </span>
+</div>
 
-				<div class="form-group" >
-						<input type="text"
-						       class="form-control"
-						       id="name"
-						       ng-model="search"
-						       placeholder="Search name..."
-								/>
-				</div >
+<div class="row">
+	<div class="col-md-12">
+		<form class="form-inline well well-sm">
+			<span class="fa fa-search"></span>
 
-				<span class="glyphicon glyphicon-sort-by-attributes" ></span >
+			<div class="form-group">
+				<input type="text" class="form-control" id="name" ng-model="search"
+					placeholder="Search name & email" />
+			</div>
 
-				<div class="form-group" >
-					<select class="form-control"
-									ng-model="order">
-						<option value="name" >Name (ASC)</option >
-						<option value="-name" >Name (DEC)</option >
-						<option value="email" >Email (ASC)</option >
-						<option value="-email" >Email (DEC)</option >
-					</select >
-				</div >
+			<span class="fa fa-sort"></span>
 
-			</form >
-		</div >
-	</div >
+			<div class="form-group">
+				<select class="form-control" ng-model="order">
+					<option value="username">Name (ASC)</option>
+					<option value="-username">Name (DEC)</option>
+					<option value="email">Email (ASC)</option>
+					<option value="-email">Email (DEC)</option>
+				</select>
+			</div>
 
+		</form>
+	</div>
+</div>
 
-	<div class="row" >
-		<div class="col-md-8" >
-
-			<table class="table table-bordered" >
-
-				<tr >
-					<th >#</th >
-					<th >Name
-						<span ng-click="order = 'name'" class="glyphicon glyphicon-menu-up"></span>
-						<span ng-click="order = '-name'" class="glyphicon glyphicon-menu-down"></span>
-					</th >
-					<th >Email
-						<span ng-click="order = 'email'" class="glyphicon glyphicon-menu-up"></span>
-						<span ng-click="order = '-email'" class="glyphicon glyphicon-menu-down"></span>
-					</th >
-					<th >Birthday</th >
-				</tr >
-
-				<tr ng-repeat="person in filteredPersons = (persons | filter:sensitiveSearch | orderBy:order)"
-				    ng-style="{
+<div class="row">
+	<div class="col-md-8">
+		<div class="tablecontainer">
+			<table class="table table-hover" infinite-scroll="loadMore()"
+				infinite-scroll-immediate-check="false" infinite-scroll-distance="1">
+				<thead>
+					<tr>
+						<th>ID.</th>
+						<th>Name
+							<div class="sortables">
+								<span ng-click="order = 'username'" class="fa fa-sort-asc"></span>
+								<span ng-click="order = '-username'" class="fa fa-sort-desc"></span>
+							</div>
+						</th>
+						<th>Address</th>
+						<th>Email
+							<div class="sortables">
+								<span ng-click="order = 'email'" class="fa fa-sort-asc"></span>
+								<span ng-click="order = '-email'" class="fa fa-sort-desc"></span>
+							</div>
+						</th>
+						<th width="20%">
+							<button class="btn btn-primary pull-right"
+								ng-click="showCreateModal()">Create</button>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr
+						ng-repeat="u in filteredUsers = (ctrl.users | filter:sensitiveSearch | orderBy:order)"
+						ng-style="{
 							 'background-color': $index == selectedIndex ? 'lightgray' : ''
 						}"
-				    ng-click="selectPerson(person, $index)" >
-					<td >{{ $index }}</td >
-					<td >{{ person.name }}</td >
-					<td >{{ person.email }}</td >
-					<td >{{ person.birthdate | date:"longDate" }}</td >
-				</tr >
-				<tr ng-show="filteredPersons.length == 0">
-					<td colspan="4">
-						<div class="alert alert-info">
-							<p class="text-center">No results found for search term '{{ search }}'</p>
-						</div>
-					</td>
-				</tr>
+						ng-click="selectUser(u, $index)">
+						<td><span ng-bind="u.id"></span></td>
+						<td><span ng-bind="u.username"></span></td>
+						<td><span ng-bind="u.address"></span></td>
+						<td><span ng-bind="u.email"></span></td>
+						<td>
+							<button type="button" ng-click="ctrl.edit(u.id)"
+								class="btn btn-success custom-width pull-right">Edit</button>							
+						</td>
+					</tr>
+					<tr ng-show="filteredUsers.length == 0 && !ctrl.isLoading">
+						<td colspan="4">
+							<div class="alert alert-info">
+								<p class="text-center">No results found for search term '{{
+									search }}'</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5"><div class="spinner" ng-show="ctrl.isLoading">
+								<span us-spinner="{radius:8, width:5, length: 3, lines:9}"></span>
+								<p>Loading...</p>
+							</div></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-4">
 
+		<div class="panel panel-default">
+			<div class="panel-heading">User Details
+				
+				<button class="btn btn-danger btn-sm pull-right"
+					        ladda="contacts.isDeleting"
+					        ng-click="ctrl.remove(u.id)" >Delete
+					</button >								
+					<div class="clearfix" ></div >
+					
+			</div>
+			<div class="panel-body">
+				 
+				<dl>
+					<dt>Name</dt>
+					<dd>{{selectedUser.username}}</dd>
+					<dt>Email</dt>
+					<dd>{{selectedUser.email}}</dd>
+					<dt>Address</dt>
+					<dd>{{selectedUser.address}}</dd>
+				</dl>
 
-			</table >
+			</div>
+		</div>
 
-		</div >
-		<div class="col-md-4" >
+	</div>
 
-			<div class="panel panel-default" >
-				<div class="panel-heading" >Details</div >
-				<div class="panel-body" >
-
-					<dl >
-						<dt >Name</dt >
-						<dd >{{selectedPerson.name}}</dd >
-						<dt >Email</dt >
-						<dd >{{selectedPerson.email}}</dd >
-						<dt >Birthday</dt >
-						<dd >{{selectedPerson.birthdate | date:"longDate"}}</dd >
-						<dt >Phonenumber</dt >
-						<dd >{{selectedPerson.phonenumber}}</dd >
-						<dt >Address</dt >
-						<dd >{{selectedPerson.address}}</dd >
-						<dt >City</dt >
-						<dd >{{selectedPerson.city}}</dd >
-						<dt >Country</dt >
-						<dd >{{selectedPerson.country}}</dd >
-					</dl >
-
-				</div >
-			</div >
-
-		</div >
-	</div >
-
-
-</div >
+</div>

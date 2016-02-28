@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.websystique.springmvc.common.TaxiConstants;
+import com.websystique.springmvc.model.TaxiResponse;
 import com.websystique.springmvc.model.User;
 import com.websystique.springmvc.service.UserService;
  
@@ -27,12 +30,13 @@ public class HelloWorldRestController {
     //-------------------Retrieve All Users--------------------------------------------------------
      
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> listAllUsers() {
-        List<User> users = userService.findAllUsers();
+    public ResponseEntity<TaxiResponse> listAllUsers(@RequestParam(required=false,defaultValue="0") Integer page) {
+        int count = userService.findAllUsers().size();
+    	List<User> users = userService.findAllUsers(page);
         if(users.isEmpty()){
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+            return new ResponseEntity<TaxiResponse>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        return new ResponseEntity<TaxiResponse>(new TaxiResponse(count, page < count/TaxiConstants.PageLimit?true:false ,page -1 ==0?false:true,users), HttpStatus.OK);
     }
  
  
