@@ -1,6 +1,6 @@
 'use strict';
 
-var App = angular.module('myApp',['ngResource',
+var app = angular.module('myTaxi',['ngResource',
                                   'infinite-scroll',
                                   'angularSpinner',
                                   'angular-ladda',
