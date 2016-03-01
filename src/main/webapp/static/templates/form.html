@@ -4,7 +4,7 @@
 		<input type="text"
 		       class="form-control"
 		       name="username"
-		       ng-model="users.selectedUser.username"
+		       ng-model="userService.selectedUser.username"
 		       required />
 	</div >
 </div >
@@ -14,7 +14,7 @@
 		<input type="email"
 		       name="email"
 		       class="form-control"
-		       ng-model="users.selectedUser.email"
+		       ng-model="userService.selectedUser.email"
 		       required />
 	</div >
 </div >
@@ -24,13 +24,13 @@
 		<input type="text"
 		       class="form-control"
 		       name="address"
-		       ng-model="users.selectedUser.address"
+		       ng-model="userService.selectedUser.address"
 				/>
 	</div >
 </div >
 <div class="buttons" >
 	<button class="btn btn-primary btn-block"
-	        ladda="users.isSaving"
+	        ladda="userService.isSaving"
 	        type="submit" >Save
 	</button >
 </div >

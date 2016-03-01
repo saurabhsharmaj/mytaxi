@@ -4,15 +4,15 @@ app.controller('UserListController', function ($scope, $modal, UserService) {
 
 	$scope.search = "";
 	$scope.order = "email";
-	$scope.users = UserService;
+	$scope.userService = UserService;
 
 	$scope.loadMore = function () {
 		console.log("Load More!!!");
-		$scope.users.loadMore();
+		$scope.userService.loadMore();
 	};
 
 	$scope.showCreateModal = function () {
-		$scope.users.selectedUser = {};
+		$scope.userService.selectedUser = {};
 		$scope.createModal = $modal({
 			scope: $scope,
 			template: 'static/templates/modal.create.tpl.html',
@@ -22,7 +22,7 @@ app.controller('UserListController', function ($scope, $modal, UserService) {
 
 	$scope.createUser = function () {
 		console.log("createUser");
-		$scope.users.createUser($scope.users.selectedUser)
+		$scope.userService.createUser($scope.userService.selectedUser)
 			.then(function () {
 				$scope.createModal.hide();
 			})
@@ -30,13 +30,13 @@ app.controller('UserListController', function ($scope, $modal, UserService) {
 
 	$scope.$watch('search', function (newVal, oldVal) {
 		if (angular.isDefined(newVal)) {
-			$scope.users.doSearch(newVal);
+			$scope.userService.doSearch(newVal);
 		}
 	});
 
 	$scope.$watch('order', function (newVal, oldVal) {
 		if (angular.isDefined(newVal)) {
-			$scope.users.doOrder(newVal);
+			$scope.userService.doOrder(newVal);
 		}
 	})
 

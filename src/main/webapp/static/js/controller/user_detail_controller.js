@@ -1,14 +1,14 @@
 'use strict';
 
 app.controller('UserDetailController', function ($scope, UserService) {
-	$scope.users = UserService;
+	$scope.userService = UserService;
 
 
 	$scope.save = function () {
-		$scope.users.updateUser($scope.users.selectedUser)
+		$scope.userService.updateUser($scope.userService.selectedUser)
 	};
 
 	$scope.remove = function () {
-		$scope.users.removeUser($scope.users.selectedUser)
+		$scope.userService.removeUser($scope.userService.selectedUser)
 	}
 });
